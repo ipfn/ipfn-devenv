@@ -1,0 +1,28 @@
+Format-Specification: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Name: ipfn
+Source: https://www.ipfn.io/
+Maintainer: Łukasz Kurowski <crackcomm@gmail.com>
+
+Files: *
+Copyright: 2017-2018, The IPFN Developers
+License: Apache-2.0
+
+Files: aufs.py
+Source: https://github.com/crackcomm/aufs.py
+Copyright: 2009-2018, Solomon Hykes <solomon.hykes@dotcloud.com>
+           2018, Łukasz Kurowski <crackcomm@gmail.com>
+License: Apache-2.0
+
+Files: devenv/{limits.conf,setup.sh}
+       devenv/install-{go,nvm,docker}.sh
+       devenv/motd-{failure,success}.txt
+Source: https://github.com/hyperledger/fabric
+Copyright: 2018, IBM Corp.
+           2018, The IPFN Developers
+License: Apache-2.0
+
+Files: devenv/install_deps.sh
+Copyright: 2015-2018, Cloudius Systems, Ltd.
+           2017-2018, SMF Authors
+           2018, The IPFN Developers
+License: Apache-2.0
