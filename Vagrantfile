@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 VM_NAME = "ipfn_v1"
-IPFN_PATH = "/opt/gopath/src/github.com/ipfn/ipfn"
+IPFN_PATH = "/opt/gopath/src/github.com/ipfn"
 
 # ugly hack to prevent hashicorp's bitrot. See https://github.com/hashicorp/vagrant/issues/9442
 # this setting is required for pre-2.0 vagrant, but causes an error as of 2.0.3,
@@ -113,7 +113,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
 
     # enables symlinks for windows
-    override.vm.synced_folder ".", IPFN_PATH
+    override.vm.synced_folder "..", IPFN_PATH
     override.vm.synced_folder ENV["HOME"] + "/.ipfn", "/host-dot-ipfn"
     vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{IPFN_PATH}", "1"]
   end
@@ -124,11 +124,11 @@ Vagrant.configure("2") do |config|
     libvirt.default_prefix = VM_NAME
 
     # /opt/gopath/src/github.com/ipfn/ipfn and /host-dot-ipfn are used by vagrant-spk
-    override.vm.synced_folder ".", IPFN_PATH, type: "9p", accessmode: "passthrough"
+    override.vm.synced_folder "..", IPFN_PATH, type: "9p", accessmode: "passthrough"
     override.vm.synced_folder ENV["HOME"] + "/.ipfn", "/host-dot-ipfn", type: "9p", accessmode: "passthrough"
     # /vagrant is not used by vagrant-spk; we need this line so it gets disabled; if we removed the
     # line, vagrant would automatically insert a synced folder in /vagrant, which is not what we want.
-    override.vm.synced_folder ".", "/vagrant", type: "9p", accessmode: "passthrough", disabled: true
+    override.vm.synced_folder "..", "/vagrant", type: "9p", accessmode: "passthrough", disabled: true
   end
 
   # View the documentation for the provider you are using for more
@@ -137,5 +137,5 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: "bash #{IPFN_PATH}/devenv/setup.sh", keep_color: true, env: {"VAGRANT" => "1"}
+  config.vm.provision "shell", inline: "bash #{IPFN_PATH}/ipfn-devenv/scripts/setup.sh", keep_color: true, env: {"VAGRANT" => "1"}
 end
